@@ -1,64 +1,28 @@
-// //import { card } from '/components/card.js';
+// eslint-disable-next-line no-unused-vars
+import React, { useState, useEffect } from 'react';
+import MovieList from './componentes/MovieList.js'; // Ajustamos la ruta de importación
 
-// export function searchMovies() {
-// 	// Obtener el valor del input
-// 	const searchTerm = document.getElementById('searchInput').value;
-// 	console.log(
-// 		'%cBúsqueda de películas con el término:',
-// 		'color: #2196F3',
-// 		searchTerm
-// 	);
+const ObtenerPeliculas = () => {
+  const [movies, setMovies] = useState([]);
 
-// 	// Realizar la solicitud a la API de OMDB
-// 	const apiKey = 'ab8939f0';
-// 	fetch(
-// 		`https://www.omdbapi.com/?apikey=${apiKey}&s=${encodeURIComponent(
-// 			searchTerm
-// 		)}&y=&page=1&type=movie&r=json`
-// 	)
-// 		.then((response) => {
-// 			return response.json();
-// 		})
-// 		.then((data) => {
-// 			// Verificar si se encontraron resultados
-// 			if (data.Search && data.Search.length > 0) {
-// 				// Obtener el primer resultado
-// 				const primerResultado = data.Search[0];
-// 				console.log(
-// 					`${primerResultado.Title} (${primerResultado.Year})(${primerResultado.Type})`
-// 				);
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await fetch('https://api.themoviedb.org/3/movie/{movie_id}'); // Reemplaza 'url_de_tu_api' con la URL de tu API
+        const data = await response.json();
+        setMovies(data.Search); 
+        console.log('Datos de la API:', data); // Supongamos que la API devuelve un objeto con una propiedad 'Search' que es un array de películas
+      } catch (error) {
+        console.error('Error fetching data:', error);
+      }
+    };
 
-// 				// Obtener el ID de IMDb del primer resultado
-// 				const imdbID = primerResultado.imdbID;
+    fetchData();
+  }, []); // Este efecto se ejecuta solo una vez al montar el componente
 
-// 				// Realizar una segunda solicitud para obtener los detalles de la película
-// 				return fetch(
-// 					`https://www.omdbapi.com/?apikey=${apiKey}&i=${imdbID}&r=json`
-// 				);
-// 			} else {
-// 				console.log('No se encontraron películas.');
-// 				throw new Error('No se encontraron películas.');
-// 			}
-// 		})
-// 		.then((response) => {
-// 			return response.json();
-// 		})
-// 		.then((data) => {
-// 			// Verificar si se encontraron resultados
-// 			if (data.Poster) {
-// 				// Mostrar la URL de la imagen de la película
-// 				console.log('URL de la imagen:', data.Poster);
+  return (
+    <MovieList movies={movies} /> // Renderizamos MovieList con las películas obtenidas
+  );
+};
 
-// 				// Crear y agregar la tarjeta de la película al DOM
-// 				const movieCard = card(data);
-// 				document.getElementById('root').appendChild(movieCard);
-// 			} else {
-// 				console.log('No se encontró una imagen para esta película.');
-// 				throw new Error('No se encontró una imagen para esta película.');
-// // 			}
-// // 		})
-// 		.catch((error) => {
-// 			console.log('Error al obtener datos:', error);
-// 			// Manejar el error aquí
-// 		});
-// }
+export default ObtenerPeliculas;
