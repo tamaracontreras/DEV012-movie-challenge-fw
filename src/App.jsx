@@ -1,7 +1,6 @@
 // eslint-disable-next-line no-unused-vars
 import React, { useState, useEffect } from 'react';
-import MovieList from '../componentes/MovieList.js';
-import obtenerPeliculas from './api/obtener.js'; // Importamos la función para obtener películas
+import MovieList from './componentes/MovieList.jsx';
 
 import './App.css';
 
@@ -11,28 +10,22 @@ function App() {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const data = await obtenerPeliculas(); // Llamamos a la función para obtener películas
-        setMovies(data.results); // Asignamos los resultados al estado 'movies'
+        const apiKey = 'b070cebc8c59293d8474dce11aa0bec2'
+        const response = await fetch(`https://api.themoviedb.org/3/movie/{movie_id}?api_key=${apiKey}`);
+        const data = await response.json();
+        setMovies(data.Search); 
+        console.log('Datos de la API:', data); // Supongamos que la API devuelve un objeto con una propiedad 'Search' que es un array de películas
       } catch (error) {
         console.error('Error fetching data:', error);
       }
     };
 
     fetchData();
-  }, []);
+  }, []); // Este efecto se ejecuta solo una vez al montar el componente
 
   return (
     <>
-      {/* <div>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1> */}
-      <div className="card">
+      <div>
         <MovieList movies={movies} /> {/* Pasamos 'movies' como prop al componente MovieList */}
       </div>
       <p className="read-the-docs">

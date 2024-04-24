@@ -1,7 +1,8 @@
 // eslint-disable-next-line no-unused-vars
 import React from 'react';
 import PropTypes from 'prop-types';
-import Card from './componentes/card.jsx'; // Asegúrate de tener la ruta correcta para Card
+import Card from './card';
+// Asegúrate de tener la ruta correcta para Card
 
 const MovieList = ({ movies }) => {
   return (
