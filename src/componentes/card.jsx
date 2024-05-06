@@ -9,7 +9,7 @@ const Card = ({ primerResultado }) => {
       <div className="card-body">
         <h4>{primerResultado.Title}</h4>
         <p>{primerResultado.Year}</p>
-      </div>
+      </div>  
     </div>
   );
 };
