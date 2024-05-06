@@ -10,7 +10,7 @@ function App() {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const apiKey = 'b070cebc8c59293d8474dce11aa0bec2'
+        const apiKey = 'b070cebc8c59293d8474dce11aa0bec2';
         const response = await fetch(`https://api.themoviedb.org/3/movie/{movie_id}?api_key=${apiKey}`);
         const data = await response.json();
         setMovies(data.Search); 
