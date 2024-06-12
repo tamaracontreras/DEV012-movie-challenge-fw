@@ -1,6 +1,6 @@
 // MovieCatalog.js
 import { useState, useEffect } from 'react';
-import { fetchMovies } from '/src/api.js'; // Asegúrate de que la ruta sea correcta
+import { fetchMovies } from './api'; // Asegúrate de que la ruta sea correcta
 
 const MovieCatalog = () => {
   const [movies, setMovies] = useState([]);
@@ -9,6 +9,7 @@ const MovieCatalog = () => {
     const getMovies = async () => {
       try {
         const movies = await fetchMovies();
+        console.log("hello");
         setMovies(movies);
       } catch (error) {
         console.error('Error setting movies:', error);
@@ -17,7 +18,7 @@ const MovieCatalog = () => {
 
     getMovies();
   }, []); // Se ejecuta solo una vez al montar el componente
-
+console.log("hola!")
   return (
     <div>
       <h1>Catálogo de películas</h1>
